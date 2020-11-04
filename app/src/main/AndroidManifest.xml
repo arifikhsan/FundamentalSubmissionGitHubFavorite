@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.fundamentalsubmissiongithubapi">
+    package="com.example.fundamentalsubmissiongithubfavorite">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FundamentalSubmissionGitHubAPI"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.search.MainActivity">
+        <activity android:name="com.example.fundamentalsubmissiongithubfavorite.ui.search.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.detail.DetailActivity"
+            android:name="com.example.fundamentalsubmissiongithubfavorite.ui.detail.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".ui.search.MainActivity"
+            android:parentActivityName="com.example.fundamentalsubmissiongithubfavorite.ui.search.MainActivity"
             android:theme="@style/Theme.FundamentalSubmissionGitHubAPI.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.search.MainActivity" />
+                android:value="com.example.fundamentalsubmissiongithubfavorite.ui.search.MainActivity" />
         </activity>
     </application>
 

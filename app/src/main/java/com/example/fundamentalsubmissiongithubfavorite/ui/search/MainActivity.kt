@@ -1,17 +1,16 @@
-package com.example.fundamentalsubmissiongithubapi.ui.search
+package com.example.fundamentalsubmissiongithubfavorite.ui.search
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fundamentalsubmissiongithubapi.R
-import com.example.fundamentalsubmissiongithubapi.model.User
-import com.example.fundamentalsubmissiongithubapi.repository.GitHubRepository
-import com.example.fundamentalsubmissiongithubapi.ui.detail.DetailActivity
+import com.example.fundamentalsubmissiongithubfavorite.R
+import com.example.fundamentalsubmissiongithubfavorite.model.User
+import com.example.fundamentalsubmissiongithubfavorite.repository.GitHubRepository
+import com.example.fundamentalsubmissiongithubfavorite.ui.detail.DetailActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

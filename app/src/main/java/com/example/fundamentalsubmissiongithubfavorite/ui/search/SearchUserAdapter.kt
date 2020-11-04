@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubapi.ui.search
+package com.example.fundamentalsubmissiongithubfavorite.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fundamentalsubmissiongithubapi.R
-import com.example.fundamentalsubmissiongithubapi.model.User
+import com.example.fundamentalsubmissiongithubfavorite.R
+import com.example.fundamentalsubmissiongithubfavorite.model.User
 import kotlinx.android.synthetic.main.item_search_user.view.*
 
 class SearchUserAdapter(private val listUser: ArrayList<User>) :

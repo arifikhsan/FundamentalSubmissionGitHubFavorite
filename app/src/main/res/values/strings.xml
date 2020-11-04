@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fundamental Submission GitHub API</string>
+    <string name="app_name">GitHub Favorite</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>

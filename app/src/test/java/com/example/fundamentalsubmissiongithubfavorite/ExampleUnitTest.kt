@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubapi
+package com.example.fundamentalsubmissiongithubfavorite
 
 import org.junit.Test
 

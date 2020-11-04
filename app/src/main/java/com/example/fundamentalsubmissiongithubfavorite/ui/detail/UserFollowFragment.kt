@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubapi.ui.detail
+package com.example.fundamentalsubmissiongithubfavorite.ui.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fundamentalsubmissiongithubapi.R
-import com.example.fundamentalsubmissiongithubapi.model.User
+import com.example.fundamentalsubmissiongithubfavorite.R
+import com.example.fundamentalsubmissiongithubfavorite.model.User
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

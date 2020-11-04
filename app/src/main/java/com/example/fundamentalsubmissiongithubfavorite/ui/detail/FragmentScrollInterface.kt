@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubapi.ui.detail
+package com.example.fundamentalsubmissiongithubfavorite.ui.detail
 
 interface FragmentScrollInterface {
     fun fragmentBecameVisible()
