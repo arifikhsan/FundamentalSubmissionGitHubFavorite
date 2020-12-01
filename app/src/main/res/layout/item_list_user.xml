@@ -38,4 +38,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_username"
         tools:text="@tools:sample/full_names" />
 
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/favorite_button"
+        android:padding="4dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_favorite_border"
+        android:tint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
