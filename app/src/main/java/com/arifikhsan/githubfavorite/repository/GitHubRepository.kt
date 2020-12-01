@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubfavorite.repository
+package com.arifikhsan.githubfavorite.repository
 
 class GitHubRepository {
     companion object {

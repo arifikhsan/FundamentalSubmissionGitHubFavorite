@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubfavorite.ui.search
+package com.arifikhsan.githubfavorite.ui.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fundamentalsubmissiongithubfavorite.R
-import com.example.fundamentalsubmissiongithubfavorite.model.User
-import com.example.fundamentalsubmissiongithubfavorite.repository.GitHubRepository
-import com.example.fundamentalsubmissiongithubfavorite.ui.detail.DetailActivity
+import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.model.User
+import com.arifikhsan.githubfavorite.repository.GitHubRepository
+import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header

@@ -1,4 +1,4 @@
-package com.example.fundamentalsubmissiongithubfavorite.ui.detail
+package com.arifikhsan.githubfavorite.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fundamentalsubmissiongithubfavorite.R
-import com.example.fundamentalsubmissiongithubfavorite.model.User
-import com.example.fundamentalsubmissiongithubfavorite.repository.GitHubRepository
+import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.model.User
+import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler

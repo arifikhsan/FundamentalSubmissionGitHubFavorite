@@ -1,10 +1,10 @@
-package com.example.fundamentalsubmissiongithubfavorite.ui.detail
+package com.arifikhsan.githubfavorite.ui.detail
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.fundamentalsubmissiongithubfavorite.R
+import com.arifikhsan.githubfavorite.R
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
