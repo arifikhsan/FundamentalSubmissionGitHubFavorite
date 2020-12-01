@@ -6,6 +6,9 @@
     <color name="green_200">#BBF7D0</color>
     <color name="green_500">#22C55E</color>
     <color name="green_700">#15803D</color>
+    <color name="blue_gray_200">#E2E8F0</color>
+    <color name="blue_gray_500">#64748B</color>
+    <color name="blue_gray_700">#334155</color>
     <color name="emerald_200">#A7F3D0</color>
     <color name="emerald_700">#047857</color>
     <color name="teal_200">#99F6E4</color>

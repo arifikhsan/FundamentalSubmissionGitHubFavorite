@@ -1,10 +1,15 @@
-package com.arifikhsan.githubfavorite.model
+package com.arifikhsan.githubfavorite.entity
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class User(
+@Entity(tableName = "users")
+data class UserEntity(
+    @PrimaryKey(autoGenerate = true)
+    val _id: Int,
     val id: Int,
     val login: String,
     val name: String,

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
-import com.arifikhsan.githubfavorite.model.User
+import com.arifikhsan.githubfavorite.entity.UserEntity
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.loopj.android.http.AsyncHttpClient
@@ -19,7 +19,7 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
     private var searchUsername = "arif"
-    private var searchUserResult = ArrayList<User>()
+    private var searchUserResult = ArrayList<UserEntity>()
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+        searchUserByUsername()
     }
 
     private fun initView() {
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
                     val items = jsonObject.getJSONArray("items")
                     for (i in 0 until items.length()) {
                         val userObject = items.getJSONObject(i)
-                        val user = User(
+                        val user = UserEntity(
                             id = userObject.getInt("id"),
                             login = userObject.getString("login"),
                             name = userObject.getString("login"),
@@ -102,10 +103,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
         userAdapter.clickListener = this
     }
 
-    override fun onItemClicked(view: View, user: User) {
+    override fun onItemClicked(view: View, userEntity: UserEntity) {
 //        Toast.makeText(this@MainActivity, "Get detail for ${user.login}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_USERNAME, user.login)
+        intent.putExtra(DetailActivity.EXTRA_USERNAME, userEntity.login)
         startActivity(intent)
     }
 }
