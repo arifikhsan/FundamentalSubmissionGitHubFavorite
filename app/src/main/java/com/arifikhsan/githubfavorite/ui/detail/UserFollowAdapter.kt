@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.item_list_user.view.*
 
 class UserFollowAdapter(private val listUserEntity: ArrayList<UserEntity>) :
     RecyclerView.Adapter<UserFollowAdapter.FollowViewHolder>() {
+
     class FollowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
         fun bind(userEntity: UserEntity) {
