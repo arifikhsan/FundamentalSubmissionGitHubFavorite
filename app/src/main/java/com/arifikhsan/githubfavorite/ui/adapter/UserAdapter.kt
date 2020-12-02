@@ -15,7 +15,11 @@ import kotlinx.android.synthetic.main.item_list_user.view.*
 class UserAdapter(private val listUser: ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    var clickListener: RecyclerViewUserClickListener? = null
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
@@ -36,12 +40,22 @@ class UserAdapter(private val listUser: ArrayList<User>) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        val user = listUser[holder.adapterPosition]
+
         holder.bind(listUser[position])
-        holder.itemView.setOnClickListener {
-            clickListener?.onItemClicked(it, listUser[position])
+        holder.itemView.btn_goto_detail.setOnClickListener {
+            onItemClickCallback.onDetailClicked(user)
+        }
+        holder.itemView.btn_add_fav.setOnClickListener {
+            onItemClickCallback.onAddFavoriteClicked(it, user)
         }
     }
 
     override fun getItemCount(): Int = listUser.size
+
+    interface OnItemClickCallback {
+        fun onDetailClicked(user: User)
+        fun onAddFavoriteClicked(view: View, user: User)
+    }
 }
 

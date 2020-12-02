@@ -13,19 +13,22 @@ import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.receiver.AlarmReceiver
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
+import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.arifikhsan.githubfavorite.ui.favorite.FavoriteActivity
 import com.arifikhsan.githubfavorite.ui.setting.SettingsActivity
+import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
+class MainActivity : AppCompatActivity() {
     private var searchUsername = "arif"
     private var searchUserResult = ArrayList<User>()
+    private lateinit var userRepository: UserRepository
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
     }
 
     private fun initView() {
+        userRepository = UserRepository(application)
         sv_search_user.setOnClickListener { sv_search_user.isIconified = false }
         sv_search_user.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean = false
@@ -119,13 +123,18 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = userAdapter
         }
-        userAdapter.clickListener = this
-    }
+        userAdapter.setItemClickCallback(object : UserAdapter.OnItemClickCallback {
+            override fun onDetailClicked(user: User) {
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_USERNAME, user.login)
+                startActivity(intent)
+            }
 
-    override fun onItemClicked(view: View, user: User) {
-//        Toast.makeText(this@MainActivity, "Get detail for ${user.login}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_USERNAME, user.login)
-        startActivity(intent)
+            override fun onAddFavoriteClicked(view: View, user: User) {
+                userRepository.insert(user)
+                Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+        })
     }
 }
