@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.receiver.AlarmReceiver
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity

@@ -2,11 +2,12 @@ package com.arifikhsan.githubfavorite.ui.setting
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.arifikhsan.githubfavorite.R
-import com.bumptech.glide.Glide.init
+import com.arifikhsan.githubfavorite.receiver.AlarmReceiver
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +24,10 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
+
         private lateinit var ALARM: String
         private lateinit var isAlarmActive: SwitchPreferenceCompat
+        private lateinit var alarmReceiver: AlarmReceiver
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.alarm_preference, rootKey)
@@ -56,8 +59,30 @@ class SettingsActivity : AppCompatActivity() {
             sharedPreferences: SharedPreferences?,
             key: String?
         ) {
-            if (key == ALARM) {
-                isAlarmActive.switchTextOn = sharedPreferences?.getBoolean(ALARM, false).toString()
+            when (key) {
+                ALARM -> {
+                    val toggle = sharedPreferences?.getBoolean(ALARM, false)
+                    isAlarmActive.switchTextOn = toggle.toString()
+                    if (toggle != null) {
+                        alarmReceiver = AlarmReceiver()
+                        if (toggle) {
+                            context?.let {
+                                alarmReceiver.setRepeatingAlarm(
+                                    it,
+                                    "09:00",
+                                    "Halo, semoga harimu menyenangkan :)"
+                                )
+                            }
+                        } else {
+                            context?.let {
+                                alarmReceiver.cancelAlarm(
+                                    it,
+                                    AlarmReceiver.TYPE_REPEATING
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

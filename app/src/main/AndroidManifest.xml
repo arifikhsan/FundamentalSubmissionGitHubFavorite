@@ -4,6 +4,8 @@
     package="com.arifikhsan.githubfavorite">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".application.GitHubFavoriteApplication"
@@ -15,6 +17,12 @@
         android:theme="@style/Theme.githubfavorite"
         tools:ignore="AllowBackup">
 
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
+
         <activity
             android:name=".ui.favorite.FavoriteDetailActivity"
             android:parentActivityName=".ui.favorite.FavoriteActivity" />
@@ -23,12 +31,6 @@
             android:name=".ui.setting.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.search.MainActivity" />
-
-        <receiver
-            android:name=".receiver.AlarmReceiver"
-            android:enabled="true"
-            android:exported="true"
-            tools:ignore="ExportedReceiver" />
 
         <activity
             android:name=".ui.favorite.FavoriteActivity"

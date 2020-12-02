@@ -23,7 +23,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
         const val TYPE_ONE_TIME = "OneTimeAlarm"
-        const val TYPE_REPEATING = "RepeatingAlarm"
+        const val TYPE_REPEATING = "Pengingat dariku, untukmu"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
@@ -32,6 +32,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         private const val DATE_FORMAT = "yyyy-MM-dd"
         private const val TIME_FORMAT = "HH:mm"
+
+        private val TAG = AlarmReceiver::class.java.simpleName
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -85,17 +87,6 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "One time alarm set up", Toast.LENGTH_SHORT).show()
     }
 
-    private fun isDateInvalid(date: String, format: String): Boolean {
-        return try {
-            val df = SimpleDateFormat(format, Locale.getDefault())
-            df.isLenient = false
-            df.parse(date)
-            false
-        } catch (e: ParseException) {
-            true
-        }
-    }
-
     @SuppressLint("ServiceCast")
     private fun showAlarmNotification(context: Context, title: String, message: String, notifId: Int) {
         val CHANNEL_ID = "Channel_1"
@@ -126,7 +117,12 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     fun setRepeatingAlarm(context: Context, time: String, message: String) {
-        if (isDateInvalid(time, TIME_FORMAT)) return
+        if (isDateInvalid(time, TIME_FORMAT)) {
+            Log.d(TAG, "setRepeatingAlarm: invalid aaaa")
+            return
+        } else {
+            Log.d(TAG, "setRepeatingAlarm: valid aaaaa")
+        }
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
@@ -141,6 +137,30 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
+
+        Toast.makeText(context, "Pengingat aktif :D", Toast.LENGTH_SHORT).show()
+    }
+
+    fun cancelAlarm(context: Context, type: String) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val requestCode = if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
+
+        pendingIntent.cancel()
+        alarmManager.cancel(pendingIntent)
+
+        Toast.makeText(context, "Pengingat dibatalkan :'(", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isDateInvalid(date: String, format: String): Boolean {
+        return try {
+            val df = SimpleDateFormat(format, Locale.getDefault())
+            df.isLenient = false
+            df.parse(date)
+            false
+        } catch (e: ParseException) {
+            true
+        }
     }
 }
