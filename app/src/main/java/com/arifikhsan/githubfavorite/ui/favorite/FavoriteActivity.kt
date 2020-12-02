@@ -10,7 +10,7 @@ import com.arifikhsan.githubfavorite.entity.User
 import kotlinx.android.synthetic.main.activity_favorite.*
 
 class FavoriteActivity : AppCompatActivity() {
-    private lateinit var favoriteUsers: ArrayList<User>
+    private var favoriteUsers = ArrayList<User>()
     private val favoriteViewModel: FavoriteViewModel by viewModels {
         FavoriteViewModelFactory((application as GitHubFavoriteApplication).repository)
     }
@@ -22,11 +22,11 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun populateView() {
+        favoriteUsers = favoriteViewModel.users
         val adapter = FavoriteAdapter(favoriteUsers)
         rv_favorite.apply {
             layoutManager = LinearLayoutManager(this@FavoriteActivity)
             this.adapter = adapter
         }
-        favoriteViewModel.users.observe(this) { favoriteUsers = it }
     }
 }

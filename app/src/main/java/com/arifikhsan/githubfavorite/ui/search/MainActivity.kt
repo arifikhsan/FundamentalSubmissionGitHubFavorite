@@ -3,7 +3,10 @@ package com.arifikhsan.githubfavorite.ui.search
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +14,7 @@ import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
+import com.arifikhsan.githubfavorite.ui.favorite.FavoriteActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -29,7 +33,20 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        searchUserByUsername()
+        searchUserByUsername() // show search for arif
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.mi_favorite -> startActivity(Intent(this, FavoriteActivity::class.java))
+            R.id.mi_alarm -> Toast.makeText(this, "alarm", Toast.LENGTH_SHORT).show()
+        }
+        return true
     }
 
     private fun initView() {

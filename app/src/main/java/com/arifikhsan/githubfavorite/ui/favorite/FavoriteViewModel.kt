@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val repository: UserRepository) : ViewModel() {
 
-    val users: LiveData<ArrayList<User>> = repository.allUsers.asLiveData()
+    val users: ArrayList<User> = repository.allUsers().toCollection(ArrayList())
 
     fun insert(user: User) = viewModelScope.launch {
         repository.insert(user)

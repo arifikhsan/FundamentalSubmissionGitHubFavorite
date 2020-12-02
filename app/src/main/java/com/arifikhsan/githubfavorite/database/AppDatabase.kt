@@ -8,7 +8,7 @@ import com.arifikhsan.githubfavorite.entity.User
 
 @Database(entities = [User::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao() : UserDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile
@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "user_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 instance
             }

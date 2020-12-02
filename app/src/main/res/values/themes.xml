@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FundamentalSubmissionGitHubAPI" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.githubfavorite" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_gray_500</item>
         <item name="colorPrimaryVariant">@color/blue_gray_700</item>
@@ -14,12 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.FundamentalSubmissionGitHubAPI.NoActionBar">
+    <style name="Theme.githubfavorite.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.FundamentalSubmissionGitHubAPI.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.githubfavorite.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.FundamentalSubmissionGitHubAPI.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.githubfavorite.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

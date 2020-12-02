@@ -7,4 +7,6 @@
     <string name="detail_user">Detail user</string>
     <string name="begin_search_by_username">Begin search by username!</string>
     <string name="favorite_button">favorite button</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="alarm_setting">Alarm Setting</string>
 </resources>

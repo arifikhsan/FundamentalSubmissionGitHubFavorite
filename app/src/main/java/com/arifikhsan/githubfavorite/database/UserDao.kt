@@ -2,11 +2,12 @@ package com.arifikhsan.githubfavorite.database
 
 import androidx.room.*
 import com.arifikhsan.githubfavorite.entity.User
-import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface UserDao {
+
     @Query("SELECT * FROM users")
-    fun getUsers(): Flow<ArrayList<User>>
+    fun getUsers(): List<User>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUser(user: User)
