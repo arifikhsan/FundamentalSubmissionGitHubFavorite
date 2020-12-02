@@ -104,7 +104,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-//        Log.d(TAG, "initView: $username")
         userRepository = UserRepository(application)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, username)

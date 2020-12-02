@@ -8,7 +8,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/mi_alarm"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_access_time"
         android:title="@string/alarm_setting"
         app:showAsAction="ifRoom" />
 </menu>

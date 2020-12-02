@@ -17,6 +17,10 @@ class UserRepository(application: Application) {
         allUsers = userDao.getUsers().toCollection(ArrayList())
     }
 
+    fun find(username: String): User {
+        return userDao.getOne(username)
+    }
+
     fun insert(user: User) {
         userDao.insertUser(user)
     }

@@ -12,13 +12,16 @@ import kotlinx.android.synthetic.main.item_favorite_user.view.*
 class FavoriteUserAdapter(private val listUser: ArrayList<User>) :
     RecyclerView.Adapter<FavoriteUserAdapter.FavoriteViewHolder>() {
 
-//    var clickListener: RecyclerViewUserClickListener? = null
-//    var favoriteClickListener: FavoriteClickListener? = null
 
     private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onDetailClickCallback: OnDetailClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
+    }
+
+    fun setOnDetailClickCallback(onDetailClickCallback: OnDetailClickCallback) {
+        this.onDetailClickCallback = onDetailClickCallback
     }
 
     class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,6 +29,7 @@ class FavoriteUserAdapter(private val listUser: ArrayList<User>) :
         fun bind(user: User) {
             with(itemView) {
                 tv_name.text = user.login
+                tv_username.text = "@${user.login} - ${user.type}"
             }
         }
     }
@@ -37,9 +41,14 @@ class FavoriteUserAdapter(private val listUser: ArrayList<User>) :
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+        val user = listUser[holder.adapterPosition]
+
         holder.bind(listUser[position])
+        holder.itemView.btn_fav_detail.setOnClickListener {
+            onDetailClickCallback.onDetailClicked(user)
+        }
         holder.itemView.btn_remove_user.setOnClickListener {
-            onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
+            onItemClickCallback.onItemClicked(user)
         }
     }
 
@@ -47,6 +56,10 @@ class FavoriteUserAdapter(private val listUser: ArrayList<User>) :
 
     interface OnItemClickCallback {
         fun onItemClicked(user: User)
+    }
+
+    interface OnDetailClickCallback {
+        fun onDetailClicked(user: User)
     }
 }
 
