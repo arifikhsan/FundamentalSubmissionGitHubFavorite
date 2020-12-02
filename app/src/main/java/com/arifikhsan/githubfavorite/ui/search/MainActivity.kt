@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,7 @@ import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.arifikhsan.githubfavorite.ui.favorite.FavoriteActivity
+import com.arifikhsan.githubfavorite.ui.setting.SettingsActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mi_favorite -> startActivity(Intent(this, FavoriteActivity::class.java))
-            R.id.mi_alarm -> Toast.makeText(this, "alarm", Toast.LENGTH_SHORT).show()
+            R.id.mi_alarm -> startActivity(Intent(this, SettingsActivity::class.java))
         }
         return true
     }
