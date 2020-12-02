@@ -1,5 +1,6 @@
 package com.arifikhsan.githubfavorite.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.arifikhsan.githubfavorite.entity.User
 

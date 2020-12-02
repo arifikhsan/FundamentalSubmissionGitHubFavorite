@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
+import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.arifikhsan.githubfavorite.ui.favorite.FavoriteActivity
 import com.loopj.android.http.AsyncHttpClient
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewUserClickListener {
     }
 
     private fun showSearchUser() {
-        val userAdapter = SearchUserAdapter(searchUserResult)
+        val userAdapter = UserAdapter(searchUserResult)
         rv_search_result.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = userAdapter

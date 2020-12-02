@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -85,7 +86,7 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
 
     private fun showUserFollow() {
         rv_user_follow.layoutManager = LinearLayoutManager(this.context)
-        rv_user_follow.adapter = UserFollowAdapter(users)
+        rv_user_follow.adapter = UserAdapter(users)
     }
 
     companion object {
@@ -109,6 +110,5 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
         val username = arguments?.getString(ARG_SECTION_USERNAME) ?: "arifikhsan"
         Log.d(TAG, "fragmentBecameVisible: $apa")
         Log.d(TAG, "fragmentBecameVisible: $username")
-//        populateData()
     }
 }

@@ -1,18 +1,17 @@
 package com.arifikhsan.githubfavorite.ui.detail
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
+import com.arifikhsan.githubfavorite.repository.UserRepository
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -22,6 +21,9 @@ import org.json.JSONObject
 
 
 class DetailActivity : AppCompatActivity() {
+
+    private lateinit var userRepository: UserRepository
+
     companion object {
         const val EXTRA_USERNAME = "extra_username"
         private val TAG = DetailActivity::class.java.simpleName
@@ -102,7 +104,9 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        Log.d(TAG, "initView: $username")
+//        Log.d(TAG, "initView: $username")
+        userRepository = UserRepository(application)
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, username)
         view_pager.adapter = sectionsPagerAdapter
 
@@ -124,10 +128,15 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
+        fab_add_favorite.setOnClickListener { view ->
+
+            userRepository.insert(user)
+            Snackbar.make(view, "Berhasil menambah ke favorit", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))
+
+//            Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))
         }
     }
 }

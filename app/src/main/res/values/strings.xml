@@ -9,4 +9,6 @@
     <string name="favorite_button">favorite button</string>
     <string name="my_favorites">My Favorites</string>
     <string name="alarm_setting">Alarm Setting</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="not_favorite_anymore">Bukan favoritku lagi</string>
 </resources>

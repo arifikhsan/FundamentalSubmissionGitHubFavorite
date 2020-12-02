@@ -8,5 +8,5 @@ class GitHubFavoriteApplication : Application() {
 
     private val database by lazy { AppDatabase.getDatabase(this) }
 
-    val repository by lazy { UserRepository(database.userDao()) }
+//    val repository by lazy { UserRepository(applicationContext.app) }
 }

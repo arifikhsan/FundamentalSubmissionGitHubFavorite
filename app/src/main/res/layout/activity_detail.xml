@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.githubfavorite.AppBarOverlay">
 
-
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
@@ -186,14 +185,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_add_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:contentDescription="@string/open_in_browser"
-        android:src="@drawable/ic_open_in_new"
-        android:tint="@android:color/white"
+        android:backgroundTint="@color/pink"
+        android:contentDescription="@string/add_to_favorite"
+        android:src="@drawable/ic_favorite"
         app:tint="@color/white" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
