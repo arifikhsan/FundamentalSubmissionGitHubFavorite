@@ -1,2 +1,3 @@
+include ':special'
 include ':app'
 rootProject.name = "GitHub Favorite"
