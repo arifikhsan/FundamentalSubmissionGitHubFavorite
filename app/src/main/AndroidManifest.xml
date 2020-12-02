@@ -14,7 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.githubfavorite"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.favorite.FavoriteActivity" />
+
+        <activity
+            android:name=".ui.setting.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.search.MainActivity" />
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
+
+        <activity
+            android:name=".ui.favorite.FavoriteActivity"
+            android:parentActivityName=".ui.search.MainActivity" />
+
         <activity android:name=".ui.search.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +37,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.detail.DetailActivity"
             android:label="@string/title_activity_detail"
             android:parentActivityName=".ui.search.MainActivity"
             android:theme="@style/Theme.githubfavorite.NoActionBar">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arifikhsan.githubfavorite.ui.search.MainActivity" />

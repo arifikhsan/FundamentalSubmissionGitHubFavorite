@@ -11,11 +11,16 @@ import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.arifikhsan.githubfavorite.ui.adapter.FavoriteUserAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_favorite.*
+import kotlinx.android.synthetic.main.item_favorite_user.*
 
-class FavoriteActivity : AppCompatActivity(), FavoriteClickListener {
+class FavoriteActivity : AppCompatActivity() {
 
     private var favoriteUsers = ArrayList<User>()
     private lateinit var userRepository: UserRepository
+
+    companion object {
+        private val TAG = FavoriteActivity::class.java.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,7 @@ class FavoriteActivity : AppCompatActivity(), FavoriteClickListener {
     private fun populateView() {
         userRepository = UserRepository(application)
         favoriteUsers = userRepository.allUsers.toCollection(ArrayList())
+
         val adapter = FavoriteUserAdapter(favoriteUsers)
 
         rv_favorite.apply {
@@ -33,21 +39,17 @@ class FavoriteActivity : AppCompatActivity(), FavoriteClickListener {
             this.adapter = adapter
         }
 
-        rv_favorite.setOnClickListener(object : FavoriteUserAdapter.OnItemClickCallback,
-            View.OnClickListener {
+        adapter.setOnItemClickCallback(object : FavoriteUserAdapter.OnItemClickCallback {
             override fun onItemClicked(user: User) {
-                Toast.makeText(this@FavoriteActivity, "aaakhkjhkjh", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onClick(v: View?) {
-                Toast.makeText(this@FavoriteActivity, "aaa", Toast.LENGTH_SHORT).show()
+                userRepository.delete(user)
+                Snackbar.make(
+                    btn_remove_user,
+                    "Kukira persahabatan kita istimewa 😭😭😭",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         })
-    }
 
-    override fun removeUser(view: View, user: User) {
-        Toast.makeText(this@FavoriteActivity, "aaa", Toast.LENGTH_SHORT).show()
-        Snackbar.make(view, "Kukira persahabatan kita istimewa 😭😭😭", Snackbar.LENGTH_LONG).show()
-        userRepository.delete(user)
+        favoriteUsers = userRepository.allUsers.toCollection(ArrayList())
     }
 }
