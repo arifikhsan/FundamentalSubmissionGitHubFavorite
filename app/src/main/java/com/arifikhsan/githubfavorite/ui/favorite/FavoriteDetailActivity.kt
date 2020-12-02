@@ -1,26 +1,27 @@
 package com.arifikhsan.githubfavorite.ui.favorite
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.viewpager.widget.ViewPager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
-import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.repository.UserRepository
-import com.arifikhsan.githubfavorite.ui.detail.SectionsPagerAdapter
-import com.arifikhsan.githubfavorite.ui.detail.UserFollowFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.json.JSONObject
+import kotlinx.android.synthetic.main.activity_detail.img_avatar
+import kotlinx.android.synthetic.main.activity_detail.tv_bio
+import kotlinx.android.synthetic.main.activity_detail.tv_follower
+import kotlinx.android.synthetic.main.activity_detail.tv_following
+import kotlinx.android.synthetic.main.activity_detail.tv_name
+import kotlinx.android.synthetic.main.activity_detail.tv_public_gists
+import kotlinx.android.synthetic.main.activity_detail.tv_public_repos
+import kotlinx.android.synthetic.main.activity_detail.tv_username
+import kotlinx.android.synthetic.main.activity_favorite_detail.*
 
 
 class FavoriteDetailActivity : AppCompatActivity() {
@@ -68,10 +69,12 @@ class FavoriteDetailActivity : AppCompatActivity() {
         supportActionBar?.title = "Detail Favorite"
         userRepository = UserRepository(application)
 
-//        fab_add_favorite.setOnClickListener { view ->
-//            userRepository.insert(user)
-//            Snackbar.make(view, "Berhasil menambah ke favorit", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
+        fab_open_in_browser.setOnClickListener { view ->
+            Snackbar.make(view, "Membuka di browser...", Snackbar.LENGTH_LONG).show()
+
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://www.github.com/${user.login}")
+            startActivity(intent)
+        }
     }
 }

@@ -17,7 +17,6 @@ class FavoriteActivity : AppCompatActivity() {
 
     private var favoriteUsers = ArrayList<User>()
     private lateinit var userRepository: UserRepository
-    private lateinit var adapter: FavoriteUserAdapter
 
     companion object {
         private val TAG = FavoriteActivity::class.java.simpleName
@@ -27,31 +26,30 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite)
         initView()
-        populateView()
     }
 
     private fun initView() {
         userRepository = UserRepository(application)
         favoriteUsers = userRepository.allUsers.toCollection(ArrayList())
 
-        adapter = FavoriteUserAdapter(favoriteUsers)
+        val adapter = FavoriteUserAdapter(favoriteUsers)
 
         rv_favorite.apply {
             layoutManager = LinearLayoutManager(this@FavoriteActivity)
             this.adapter = adapter
         }
-    }
 
-    private fun populateView() {
         adapter.setOnItemClickCallback(object : FavoriteUserAdapter.OnItemClickCallback {
             override fun onItemClicked(user: User) {
                 userRepository.delete(user)
+                favoriteUsers.remove(user)
+                adapter.notifyDataSetChanged()
+
                 Snackbar.make(
                     btn_remove_user,
                     "Kukira persahabatan kita istimewa 😭😭😭",
                     Snackbar.LENGTH_LONG
                 ).show()
-                initView()
             }
         })
 
