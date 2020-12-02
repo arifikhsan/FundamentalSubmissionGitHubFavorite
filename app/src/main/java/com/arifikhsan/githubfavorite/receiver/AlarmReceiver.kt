@@ -117,12 +117,7 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     fun setRepeatingAlarm(context: Context, time: String, message: String) {
-        if (isDateInvalid(time, TIME_FORMAT)) {
-            Log.d(TAG, "setRepeatingAlarm: invalid aaaa")
-            return
-        } else {
-            Log.d(TAG, "setRepeatingAlarm: valid aaaaa")
-        }
+        if (isDateInvalid(time, TIME_FORMAT)) return
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)

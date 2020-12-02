@@ -47,7 +47,7 @@ class FavoriteActivity : AppCompatActivity() {
 
                 Snackbar.make(
                     btn_remove_user,
-                    "Kukira persahabatan kita istimewa 😭😭😭",
+                    "Kukira hubungan kita istimewa :(",
                     Snackbar.LENGTH_LONG
                 ).show()
             }
