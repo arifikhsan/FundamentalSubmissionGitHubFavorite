@@ -1,5 +1,6 @@
 package com.arifikhsan.githubfavorite.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -24,6 +27,7 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
     private val users = ArrayList<User>()
     private lateinit var username: String
     private var tabNumber = 1
+    private lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,9 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
         username = arguments?.getString(ARG_SECTION_USERNAME) ?: "arifikhsan"
         Log.d(TAG, "number: $tabNumber")
         Log.d(TAG, "username: $username")
+        activity?.let {
+            userRepository = UserRepository(it.application)
+        }
         populateData()
     }
 
@@ -85,8 +92,22 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
     }
 
     private fun showUserFollow() {
+        val adapter = UserAdapter(users)
         rv_user_follow.layoutManager = LinearLayoutManager(this.context)
-        rv_user_follow.adapter = UserAdapter(users)
+        rv_user_follow.adapter = adapter
+
+        adapter.setItemClickCallback(object : UserAdapter.OnItemClickCallback {
+            override fun onDetailClicked(user: User) {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_USERNAME, user.login)
+                startActivity(intent)
+            }
+
+            override fun onAddFavoriteClicked(view: View, user: User) {
+                userRepository.insert(user)
+                Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     companion object {
