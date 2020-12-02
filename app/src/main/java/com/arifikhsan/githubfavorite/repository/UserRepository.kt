@@ -1,13 +1,13 @@
 package com.arifikhsan.githubfavorite.repository
 
 import com.arifikhsan.githubfavorite.database.UserDao
-import com.arifikhsan.githubfavorite.entity.UserEntity
+import com.arifikhsan.githubfavorite.entity.User
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository(private val userDao: UserDao) {
-    val allUsers: Flow<ArrayList<UserEntity>> = userDao.getUsers()
+    val allUsers: Flow<ArrayList<User>> = userDao.getUsers()
 
-    fun insert(userEntity: UserEntity) {
-        userDao.insertUser(userEntity)
+    fun insert(user: User) {
+        userDao.insertUser(user)
     }
 }

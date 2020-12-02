@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.arifikhsan.githubfavorite.R
-import com.arifikhsan.githubfavorite.entity.UserEntity
+import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.google.android.material.snackbar.Snackbar
 import com.loopj.android.http.AsyncHttpClient
@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_USERNAME = "extra_username"
         private val TAG = DetailActivity::class.java.simpleName
         private var username = ""
-        private lateinit var userEntity: UserEntity
+        private lateinit var user: User
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
                     val result = String(responseBody)
                     val userObject = JSONObject(result)
 
-                    userEntity = UserEntity(
+                    user = User(
                         id = userObject.getInt("id"),
                         login = userObject.getString("login"),
                         name = userObject.getString("name"),
@@ -86,19 +86,19 @@ class DetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun populateView() {
-        Glide.with(this).load(userEntity.avatarUrl)
+        Glide.with(this).load(user.avatarUrl)
             .apply(RequestOptions().override(80, 80)).into(img_avatar)
-        tv_name.text = userEntity.name
-        tv_username.text = "@${userEntity.login}"
-        if (userEntity.bio == "null") {
+        tv_name.text = user.name
+        tv_username.text = "@${user.login}"
+        if (user.bio == "null") {
             tv_bio.visibility = View.GONE
         } else {
-            tv_bio.text = userEntity.bio
+            tv_bio.text = user.bio
         }
-        tv_follower.text = "Followers: ${userEntity.follower}"
-        tv_following.text = "Following: ${userEntity.following}"
-        tv_public_repos.text = "${userEntity.publicRepos} Public Repositories"
-        tv_public_gists.text = "${userEntity.publicGists} Public Gists"
+        tv_follower.text = "Followers: ${user.follower}"
+        tv_following.text = "Following: ${user.following}"
+        tv_public_repos.text = "${user.publicRepos} Public Repositories"
+        tv_public_gists.text = "${user.publicGists} Public Gists"
     }
 
     private fun initView() {
@@ -125,9 +125,9 @@ class DetailActivity : AppCompatActivity() {
 
         })
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Open in browser for ${userEntity.htmlUrl}", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(userEntity.htmlUrl)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))
         }
     }
 }

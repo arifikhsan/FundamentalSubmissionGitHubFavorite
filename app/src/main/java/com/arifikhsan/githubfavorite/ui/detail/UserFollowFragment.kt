@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
-import com.arifikhsan.githubfavorite.entity.UserEntity
+import com.arifikhsan.githubfavorite.entity.User
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -20,7 +20,7 @@ import org.json.JSONArray
  */
 class UserFollowFragment : Fragment(), FragmentScrollInterface {
 
-    private val users = ArrayList<UserEntity>()
+    private val users = ArrayList<User>()
     private lateinit var username: String
     private var tabNumber = 1
 
@@ -59,7 +59,7 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
                     val items = JSONArray(result)
                     for (i in 0 until items.length()) {
                         val userObject = items.getJSONObject(i)
-                        val user = UserEntity(
+                        val user = User(
                             id = userObject.getInt("id"),
                             login = userObject.getString("login"),
                             name = userObject.getString("login"),

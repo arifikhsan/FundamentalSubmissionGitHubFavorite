@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.application.GitHubFavoriteApplication
-import com.arifikhsan.githubfavorite.entity.UserEntity
+import com.arifikhsan.githubfavorite.entity.User
 import kotlinx.android.synthetic.main.activity_favorite.*
 
 class FavoriteActivity : AppCompatActivity() {
-    private lateinit var favoriteUsers: ArrayList<UserEntity>
+    private lateinit var favoriteUsers: ArrayList<User>
     private val favoriteViewModel: FavoriteViewModel by viewModels {
         FavoriteViewModelFactory((application as GitHubFavoriteApplication).repository)
     }

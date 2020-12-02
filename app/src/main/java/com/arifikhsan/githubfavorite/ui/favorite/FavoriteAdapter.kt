@@ -5,16 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arifikhsan.githubfavorite.R
-import com.arifikhsan.githubfavorite.entity.UserEntity
+import com.arifikhsan.githubfavorite.entity.User
 import kotlinx.android.synthetic.main.item_favorite_user.view.*
 
-class FavoriteAdapter(private val listUserEntity: ArrayList<UserEntity>) :
+class FavoriteAdapter(private val listUser: ArrayList<User>) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(userEntity: UserEntity) {
+        fun bind(user: User) {
             with(itemView) {
-                tv_name.text = userEntity.login
+                tv_name.text = user.login
             }
         }
     }
@@ -26,8 +26,8 @@ class FavoriteAdapter(private val listUserEntity: ArrayList<UserEntity>) :
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bind(listUserEntity[position])
+        holder.bind(listUser[position])
     }
 
-    override fun getItemCount(): Int = listUserEntity.size
+    override fun getItemCount(): Int = listUser.size
 }
