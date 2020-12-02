@@ -185,13 +185,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_favorite"
+        android:id="@+id/fab_open_in_browser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/pink"
-        android:contentDescription="@string/add_to_favorite"
+        android:backgroundTint="@color/blue_gray_500"
+        android:contentDescription="@string/open_in_browser"
         android:src="@drawable/ic_favorite"
         app:tint="@color/white" />
 

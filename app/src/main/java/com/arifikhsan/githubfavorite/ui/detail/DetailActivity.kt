@@ -1,6 +1,8 @@
 package com.arifikhsan.githubfavorite.ui.detail
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -127,15 +129,10 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
-        fab_add_favorite.setOnClickListener { view ->
-
-            userRepository.insert(user)
-            Snackbar.make(view, "Berhasil menambah ke favorit", Snackbar.LENGTH_LONG)
+        fab_open_in_browser.setOnClickListener { view ->
+            Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-
-//            Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))
         }
     }
 }
