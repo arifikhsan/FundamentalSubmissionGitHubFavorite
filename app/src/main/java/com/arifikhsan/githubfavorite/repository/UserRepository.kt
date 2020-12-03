@@ -34,9 +34,9 @@ class UserRepository(application: Application) {
         return userDao.insertUser(mapContentValuesToUser(values))
     }
 
-//    fun delete(user: User) {
-//        userDao.deleteUser(user)
-//    }
+    fun delete(user: User) {
+        userDao.deleteUser(user)
+    }
 
     fun deleteById(id: Int): Int {
         return userDao.deleteById(id)

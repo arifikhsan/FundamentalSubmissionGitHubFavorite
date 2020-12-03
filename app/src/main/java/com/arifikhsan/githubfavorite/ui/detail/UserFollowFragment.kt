@@ -107,7 +107,6 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
 
             override fun onAddFavoriteClicked(view: View, user: User) {
                 activity?.contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
-//                userRepository.insert(user)
                 Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG).show()
             }
         })

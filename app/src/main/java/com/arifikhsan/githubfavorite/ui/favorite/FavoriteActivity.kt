@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_favorite.*
 class FavoriteActivity : AppCompatActivity() {
 
     private var favoriteUsers = ArrayList<User>()
-//    private lateinit var userRepository: UserRepository
 
     companion object {
         private val TAG = FavoriteActivity::class.java.simpleName
@@ -36,9 +35,6 @@ class FavoriteActivity : AppCompatActivity() {
             favoriteUsers = mapCursorToArrayList(cursor)
             cursor.close()
         }
-//        userRepository = UserRepository(application)
-//        favoriteUsers = userRepository.allUsers().toCollection(ArrayList())
-
         val adapter = FavoriteAdapter(favoriteUsers)
 
         rv_favorite.apply {
@@ -50,7 +46,6 @@ class FavoriteActivity : AppCompatActivity() {
             override fun onRemoveFavoriteClicked(view: View, user: User) {
                 val uriWithId = Uri.parse(CONTENT_URI.toString() + '/' + user.id)
                 contentResolver?.delete(uriWithId, user.id.toString(), null)
-//                userRepository.deleteById(user.id)
                 favoriteUsers.remove(user)
                 adapter.notifyDataSetChanged()
 
@@ -64,7 +59,6 @@ class FavoriteActivity : AppCompatActivity() {
             override fun onDetailClicked(user: User) {
                 val intent = Intent(this@FavoriteActivity, FavoriteDetailActivity::class.java)
                 intent.putExtra(FavoriteDetailActivity.EXTRA_ID, user.id)
-//                intent.putExtra(FavoriteDetailActivity.EXTRA_USERNAME, user.login)
                 startActivity(intent)
             }
         })

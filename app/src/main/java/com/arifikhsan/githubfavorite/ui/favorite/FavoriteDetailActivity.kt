@@ -26,14 +26,11 @@ import kotlinx.android.synthetic.main.activity_favorite_detail.*
 
 class FavoriteDetailActivity : AppCompatActivity() {
 
-//    private lateinit var userRepository: UserRepository
-
     companion object {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_USERNAME = "extra_username"
         private val TAG = FavoriteDetailActivity::class.java.simpleName
         private var id = 0
-//        private var username = ""
         private lateinit var user: User
     }
 
@@ -53,8 +50,6 @@ class FavoriteDetailActivity : AppCompatActivity() {
             user = mapCursorToObject(cursor)
             cursor.close()
         }
-
-//        user = userRepository.findByUsername(username)
     }
 
     @SuppressLint("SetTextI18n")
@@ -76,7 +71,6 @@ class FavoriteDetailActivity : AppCompatActivity() {
 
     private fun initView() {
         supportActionBar?.title = "Detail Favorite"
-//        userRepository = UserRepository(application)
 
         fab_fav_open_in_browser.setOnClickListener { view ->
             Snackbar.make(view, "Membuka di browser...", Snackbar.LENGTH_LONG).show()
