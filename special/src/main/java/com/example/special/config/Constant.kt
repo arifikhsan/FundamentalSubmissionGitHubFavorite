@@ -11,14 +11,14 @@ object Constant {
         const val ID = "id"
         const val LOGIN = "login"
         const val NAME = "name"
-        const val AVATAR_URL = "avatarUrl"
+        const val AVATAR_URL = "avatar_url"
         const val TYPE = "type"
         const val BIO = "bio"
-        const val HTML_URL = "htmlUrl"
+        const val HTML_URL = "html_url"
         const val FOLLOWERS = "followers"
         const val FOLLOWING = "following"
-        const val PUBLIC_REPOS = "publicRepos"
-        const val PUBLIC_GISTS = "publicGists"
+        const val PUBLIC_REPOS = "public_repos"
+        const val PUBLIC_GISTS = "public_gists"
     }
 
     val CONTENT_URI: Uri = Uri.Builder()

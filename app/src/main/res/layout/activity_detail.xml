@@ -63,6 +63,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/appbar" />
@@ -75,8 +76,8 @@
                     android:layout_marginTop="8dp"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/img_avatar"
+                    app:layout_constraintStart_toStartOf="@+id/img_avatar"
                     app:layout_constraintTop_toBottomOf="@+id/img_avatar"
                     tools:text="@tools:sample/full_names" />
 
@@ -88,8 +89,8 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_name"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
                     tools:text="@tools:sample/full_names" />
 
@@ -104,8 +105,8 @@
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_username"
+                    app:layout_constraintStart_toStartOf="@+id/tv_username"
                     app:layout_constraintTop_toBottomOf="@+id/tv_username"
                     tools:text="@tools:sample/lorem" />
 
@@ -144,8 +145,9 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_public_gists"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_follower"
+                    app:layout_constraintHorizontal_bias="0.6"
+                    app:layout_constraintStart_toStartOf="@+id/tv_follower"
                     app:layout_constraintTop_toBottomOf="@+id/tv_follower"
                     tools:text="20 Public Repos" />
 
@@ -157,8 +159,8 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_public_repos"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_following"
+                    app:layout_constraintStart_toStartOf="@+id/tv_following"
                     app:layout_constraintTop_toBottomOf="@+id/tv_following"
                     tools:text="20 Public Gists" />
 

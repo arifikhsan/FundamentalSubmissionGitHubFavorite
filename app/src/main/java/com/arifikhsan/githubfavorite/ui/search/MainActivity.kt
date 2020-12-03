@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -162,6 +163,9 @@ class MainActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<User>, response: Response<User>) {
                             var userDetail = User()
                             response.body()?.let { userDetail = it }
+
+                            Log.d(TAG, "aaaaaaaaaaa: $userDetail")
+                            Toast.makeText(this@MainActivity, userDetail.toString(), Toast.LENGTH_SHORT).show()
 
                             contentResolver?.insert(CONTENT_URI, mapUserToContentValues(userDetail))
                             Snackbar.make(
