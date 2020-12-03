@@ -81,7 +81,7 @@ object MappingHelper {
                 following = getAsInteger(FOLLOWING),
                 publicRepos = getAsInteger(PUBLIC_REPOS),
                 publicGists = getAsInteger(PUBLIC_GISTS),
-                )
+            )
         }
         return user
     }

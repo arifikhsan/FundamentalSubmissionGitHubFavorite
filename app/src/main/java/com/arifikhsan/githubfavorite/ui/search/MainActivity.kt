@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
+import com.arifikhsan.githubfavorite.entity.SearchResponse
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapUserToContentValues
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
@@ -24,14 +25,11 @@ import com.arifikhsan.githubfavorite.ui.detail.DetailActivity
 import com.arifikhsan.githubfavorite.ui.favorite.FavoriteActivity
 import com.arifikhsan.githubfavorite.ui.setting.SettingsActivity
 import com.google.android.material.snackbar.Snackbar
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private var searchUsername = "arif"
@@ -97,48 +95,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchUserByUsername() {
+        Log.d(TAG, "searchUserByUsername: aaaa")
         tv_begin_search.visibility = View.INVISIBLE
 
-        val client = AsyncHttpClient()
-        client.addHeader("Authorization", "df97872248fb3eecacba97569ad7156b9674c9df")
-        client.addHeader("User-Agent", "request")
-
-        client.get(
-            "${GitHubRepository.BASE_URL}search/users?q=$searchUsername",
-            object : AsyncHttpResponseHandler() {
-                override fun onSuccess(
-                    statusCode: Int,
-                    headers: Array<out Header>?,
-                    responseBody: ByteArray
+        GitHubRepository().getService().searchUser(searchUsername)
+            .enqueue(object : Callback<SearchResponse> {
+                override fun onResponse(
+                    call: Call<SearchResponse>,
+                    response: Response<SearchResponse>
                 ) {
-                    loading_indicator.visibility = View.INVISIBLE
-                    val result = String(responseBody)
+                    response.body()?.let {
+                        loading_indicator.visibility = View.INVISIBLE
 
-                    val jsonObject = JSONObject(result)
-                    val items = jsonObject.getJSONArray("items")
-                    for (i in 0 until items.length()) {
-                        val userObject = items.getJSONObject(i)
-                        val user = User(
-                            id = userObject.getInt("id"),
-                            login = userObject.getString("login"),
-                            name = userObject.getString("login"),
-                            avatarUrl = userObject.getString("avatar_url"),
-                            type = userObject.getString("type")
-                        )
-                        searchUserResult.add(user)
+                        it.items.forEach { user ->
+                            searchUserResult.add(user)
+                        }
+
+                        Log.d(TAG, "aaaaa: $searchUserResult")
+                        showSearchUser()
                     }
-                    showSearchUser()
                 }
 
-                override fun onFailure(
-                    statusCode: Int,
-                    headers: Array<out Header>?,
-                    responseBody: ByteArray?,
-                    error: Throwable?
-                ) {
+                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                     loading_indicator.visibility = View.INVISIBLE
-                    Log.d(TAG, "onFailure: $statusCode | ${error?.message}")
-                    error?.printStackTrace()
+                    Log.d(TAG, "onFailure: ${t.message}")
+                    t.printStackTrace()
                 }
             })
     }
@@ -158,14 +139,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
+                loading_indicator.visibility = View.VISIBLE
                 GitHubRepository().getService().getDetailUserByUsername(user.login)
                     .enqueue(object : Callback<User> {
                         override fun onResponse(call: Call<User>, response: Response<User>) {
                             var userDetail = User()
                             response.body()?.let { userDetail = it }
-
-                            Log.d(TAG, "aaaaaaaaaaa: $userDetail")
-                            Toast.makeText(this@MainActivity, userDetail.toString(), Toast.LENGTH_SHORT).show()
 
                             contentResolver?.insert(CONTENT_URI, mapUserToContentValues(userDetail))
                             Snackbar.make(
@@ -173,15 +152,15 @@ class MainActivity : AppCompatActivity() {
                                 "Berhasil menambahkan ke favorit",
                                 Snackbar.LENGTH_LONG
                             ).show()
+                            loading_indicator.visibility = View.GONE
                         }
 
                         override fun onFailure(call: Call<User>, t: Throwable) {
                             Snackbar.make(view, "Gagal mengambil detail user", Snackbar.LENGTH_LONG)
                                 .show()
+                            loading_indicator.visibility = View.GONE
                         }
                     })
-
-
             }
         })
     }

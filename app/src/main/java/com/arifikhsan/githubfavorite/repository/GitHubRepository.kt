@@ -1,14 +1,17 @@
 package com.arifikhsan.githubfavorite.repository
 
+import com.arifikhsan.githubfavorite.entity.SearchResponse
 import com.arifikhsan.githubfavorite.entity.User
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 class GitHubRepository {
     companion object {
@@ -36,7 +39,12 @@ class GitHubRepository {
 }
 
 interface GitHub {
+
     @Headers("Authorization: df97872248fb3eecacba97569ad7156b9674c9df")
     @GET("users/{username}")
     fun getDetailUserByUsername(@Path("username") username: String): Call<User>
+
+    @Headers("Authorization: df97872248fb3eecacba97569ad7156b9674c9df")
+    @GET("search/users")
+    fun searchUser(@Query("q") username: String): Call<SearchResponse>
 }
