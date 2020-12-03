@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initResolver()
         initView()
-//        searchUserByUsername() // show search for arif
+        searchUserByUsername() // show search for arif
     }
 
     private fun initResolver() {
@@ -154,6 +154,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
+
                 contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
                 Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()

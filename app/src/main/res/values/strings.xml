@@ -34,4 +34,5 @@
     <string name="add_favorite">Tambah Favorit</string>
     <string name="goto_detail">Lihat Detail</string>
     <string name="alarm_title">Hidupkan pengingat jam 9 pagi</string>
+    <string name="notification_subtext">Klik disini untuk membuka aplikasi GitHub Favorite</string>
 </resources>

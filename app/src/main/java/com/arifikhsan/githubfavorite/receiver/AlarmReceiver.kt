@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
@@ -15,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.ui.search.MainActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -88,24 +90,39 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     @SuppressLint("ServiceCast")
-    private fun showAlarmNotification(context: Context, title: String, message: String, notifId: Int) {
+    private fun showAlarmNotification(
+        context: Context,
+        title: String,
+        message: String,
+        notifId: Int
+    ) {
         val CHANNEL_ID = "Channel_1"
         val CHANNEL_NAME = "AlarmManager channel"
 
-        val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManagerCompat =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+        val intent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_access_time)
+            .setContentIntent(pendingIntent)
+            .setSmallIcon(R.drawable.ic_code)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_code))
             .setContentTitle(title)
             .setContentText(message)
+            .setSubText(context.getString(R.string.notification_subtext))
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
             .setSound(alarmSound)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID,
+            val channel = NotificationChannel(
+                CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             channel.enableVibration(true)
             channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
             builder.setChannelId(CHANNEL_ID)
@@ -131,7 +148,12 @@ class AlarmReceiver : BroadcastReceiver() {
         calendar.set(Calendar.SECOND, 0)
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
 
         Toast.makeText(context, "Pengingat aktif :D", Toast.LENGTH_SHORT).show()
     }
@@ -139,7 +161,8 @@ class AlarmReceiver : BroadcastReceiver() {
     fun cancelAlarm(context: Context, type: String) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
-        val requestCode = if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
+        val requestCode =
+            if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
 
         pendingIntent.cancel()
