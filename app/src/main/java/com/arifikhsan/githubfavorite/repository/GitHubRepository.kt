@@ -35,7 +35,7 @@ class GitHubRepository {
             .build()
     }
 
-    fun getService() = getRetrofit().create(GitHub::class.java)
+    fun getService(): GitHub = getRetrofit().create(GitHub::class.java)
 }
 
 interface GitHub {
