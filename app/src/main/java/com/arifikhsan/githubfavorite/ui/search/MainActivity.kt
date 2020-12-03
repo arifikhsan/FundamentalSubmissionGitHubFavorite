@@ -28,6 +28,9 @@ import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private var searchUsername = "arif"
@@ -154,10 +157,27 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
+                GitHubRepository().getService().getDetailUserByUsername(user.login)
+                    .enqueue(object : Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            var userDetail = User()
+                            response.body()?.let { userDetail = it }
 
-                contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
-                Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                            contentResolver?.insert(CONTENT_URI, mapUserToContentValues(userDetail))
+                            Snackbar.make(
+                                view,
+                                "Berhasil menambahkan ke favorit",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Snackbar.make(view, "Gagal mengambil detail user", Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                    })
+
+
             }
         })
     }
