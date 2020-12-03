@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Special</string>
+    <string name="see_detail">Lihat detail</string>
+    <string name="remove_favorite">hapus favorite</string>
+    <string name="add_to_favorite">tambah favorite</string>
 </resources>
