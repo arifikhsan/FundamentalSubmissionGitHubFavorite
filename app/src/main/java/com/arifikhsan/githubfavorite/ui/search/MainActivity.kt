@@ -1,7 +1,10 @@
 package com.arifikhsan.githubfavorite.ui.search
 
 import android.content.Intent
+import android.database.ContentObserver
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -10,8 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
 import com.arifikhsan.githubfavorite.entity.User
-import com.arifikhsan.githubfavorite.receiver.AlarmReceiver
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapUserToContentValues
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
@@ -37,8 +41,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initResolver()
         initView()
         searchUserByUsername() // show search for arif
+    }
+
+    private fun initResolver() {
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(selfChange: Boolean) {
+                loadUsers()
+            }
+        }
+
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -54,8 +73,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun initView() {
+    private fun loadUsers() {
         userRepository = UserRepository(application)
+    }
+
+    private fun initView() {
         sv_search_user.setOnClickListener { sv_search_user.isIconified = false }
         sv_search_user.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean = false
@@ -131,7 +153,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
-                userRepository.insert(user)
+                contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
+//                userRepository.insert(user)
                 Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             }

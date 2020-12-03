@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.config.Constant
+import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.helper.MappingHelper
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapCursorToObject
 import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail.img_avatar
 import kotlinx.android.synthetic.main.activity_detail.tv_bio
 import kotlinx.android.synthetic.main.activity_detail.tv_follower
@@ -26,26 +29,36 @@ import kotlinx.android.synthetic.main.activity_favorite_detail.*
 
 class FavoriteDetailActivity : AppCompatActivity() {
 
-    private lateinit var userRepository: UserRepository
+//    private lateinit var userRepository: UserRepository
 
     companion object {
+        const val EXTRA_ID = "extra_id"
         const val EXTRA_USERNAME = "extra_username"
         private val TAG = FavoriteDetailActivity::class.java.simpleName
-        private var username = ""
+        private var id = 0
+//        private var username = ""
         private lateinit var user: User
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_detail)
-        username = intent.getStringExtra(EXTRA_USERNAME) ?: "arifikhsan"
+        id = intent.getIntExtra(EXTRA_ID, 0)
+//        username = intent.getStringExtra(EXTRA_USERNAME) ?: "arifikhsan"
         initView()
         searchUserByUsername()
         populateView()
     }
 
     private fun searchUserByUsername() {
-        user = userRepository.find(username)
+        val uriWithId = Uri.parse("$CONTENT_URI/$id")
+        val cursor = contentResolver?.query(uriWithId, null, null, null, null)
+        if (cursor != null) {
+            user = mapCursorToObject(cursor)
+            cursor.close()
+        }
+
+//        user = userRepository.findByUsername(username)
     }
 
     @SuppressLint("SetTextI18n")
@@ -67,9 +80,9 @@ class FavoriteDetailActivity : AppCompatActivity() {
 
     private fun initView() {
         supportActionBar?.title = "Detail Favorite"
-        userRepository = UserRepository(application)
+//        userRepository = UserRepository(application)
 
-        fab_open_in_browser.setOnClickListener { view ->
+        fab_fav_open_in_browser.setOnClickListener { view ->
             Snackbar.make(view, "Membuka di browser...", Snackbar.LENGTH_LONG).show()
 
             val intent = Intent(Intent.ACTION_VIEW)

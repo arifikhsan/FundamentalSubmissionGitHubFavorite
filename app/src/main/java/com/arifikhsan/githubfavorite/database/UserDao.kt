@@ -1,5 +1,6 @@
 package com.arifikhsan.githubfavorite.database
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.arifikhsan.githubfavorite.entity.User
@@ -8,19 +9,25 @@ import com.arifikhsan.githubfavorite.entity.User
 interface UserDao {
 
     @Query("SELECT * FROM users")
-    fun getUsers(): List<User>
+    fun getUsers(): Cursor
 
     @Query("SELECT * FROM users WHERE login = :username")
-    fun getOne(username: String): User
+    fun findByUsername(username: String): Cursor
+
+    @Query("SELECT * FROM users WHERE id = :id")
+    fun findById(id: Int): Cursor
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertUser(user: User)
+    fun insertUser(user: User): Long
 
     @Update
     fun updateUser(user: User)
 
     @Delete
     fun deleteUser(user: User)
+
+    @Query("DELETE FROM users WHERE id = :id")
+    fun deleteById(id: Int): Int
 
     @Query("DELETE FROM users")
     fun deleteAll()

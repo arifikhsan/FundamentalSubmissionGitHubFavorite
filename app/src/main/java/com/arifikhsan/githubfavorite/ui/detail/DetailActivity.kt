@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.arifikhsan.githubfavorite.R
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapJsonObjectToUser
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.bumptech.glide.Glide
@@ -58,20 +59,7 @@ class DetailActivity : AppCompatActivity() {
                     detail_loading_indicator.visibility = View.INVISIBLE
                     val result = String(responseBody)
                     val userObject = JSONObject(result)
-
-                    user = User(
-                        id = userObject.getInt("id"),
-                        login = userObject.getString("login"),
-                        name = userObject.getString("name"),
-                        avatarUrl = userObject.getString("avatar_url"),
-                        htmlUrl = userObject.getString("html_url"),
-                        type = userObject.getString("type"),
-                        bio = userObject.getString("bio"),
-                        follower = userObject.getInt("followers"),
-                        following = userObject.getInt("following"),
-                        publicRepos = userObject.getInt("public_repos"),
-                        publicGists = userObject.getInt("public_gists"),
-                    )
+                    user = mapJsonObjectToUser(userObject)
                     populateView()
                 }
 
@@ -129,7 +117,7 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
-        fab_open_in_browser.setOnClickListener { view ->
+        fab_open_browser.setOnClickListener { view ->
             Snackbar.make(view, "Open in browser for ${user.htmlUrl}", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(user.htmlUrl)))

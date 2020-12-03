@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
 import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapUserToContentValues
 import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.arifikhsan.githubfavorite.ui.adapter.UserAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -104,7 +106,8 @@ class UserFollowFragment : Fragment(), FragmentScrollInterface {
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
-                userRepository.insert(user)
+                activity?.contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
+//                userRepository.insert(user)
                 Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG).show()
             }
         })

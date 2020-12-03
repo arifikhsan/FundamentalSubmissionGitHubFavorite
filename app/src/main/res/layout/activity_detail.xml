@@ -185,14 +185,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_open_in_browser"
+        android:id="@+id/fab_open_browser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="@color/blue_gray_500"
         android:contentDescription="@string/open_in_browser"
-        android:src="@drawable/ic_favorite"
+        android:src="@drawable/ic_open_in_new"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,6 +6,6 @@
 
         app:key="@string/key_alarm"
         app:summary="@string/summary_alarm"
-        app:title="Hidupkan pengingat" />
+        app:title="@string/alarm_title" />
 
 </PreferenceScreen>
