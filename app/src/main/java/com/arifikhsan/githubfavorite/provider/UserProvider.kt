@@ -12,7 +12,7 @@ import com.arifikhsan.githubfavorite.database.AppDatabase
 import com.arifikhsan.githubfavorite.database.UserDao
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapContentValuesToUser
 
-class FavoriteProvider : ContentProvider() {
+class UserProvider : ContentProvider() {
 
     companion object {
         private const val USER = 1

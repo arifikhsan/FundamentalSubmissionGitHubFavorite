@@ -24,7 +24,7 @@
         tools:ignore="AllowBackup">
 
         <provider
-            android:name=".provider.FavoriteProvider"
+            android:name=".provider.UserProvider"
             android:authorities="com.arifikhsan.githubfavorite"
             android:enabled="true"
             android:exported="true"
