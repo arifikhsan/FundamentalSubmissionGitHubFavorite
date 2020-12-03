@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                     loading_indicator.visibility = View.INVISIBLE
+                    Toast.makeText(this@MainActivity, "Gagal mencari user :(", Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "onFailure: ${t.message}")
                     t.printStackTrace()
                 }
