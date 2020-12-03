@@ -10,7 +10,7 @@ import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
 import com.arifikhsan.githubfavorite.config.Constant.USER_TABLE
 import com.arifikhsan.githubfavorite.database.AppDatabase
 import com.arifikhsan.githubfavorite.database.UserDao
-import com.arifikhsan.githubfavorite.helper.MappingHelper.mapContentValuesToObject
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapContentValuesToUser
 
 class FavoriteProvider : ContentProvider() {
 
@@ -53,7 +53,7 @@ class FavoriteProvider : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         val added: Long = when (USER) {
-            sUriMatcher.match(uri) -> userDao.insertUser(mapContentValuesToObject(values))
+            sUriMatcher.match(uri) -> userDao.insertUser(mapContentValuesToUser(values))
             else -> 0
         }
 
@@ -65,7 +65,17 @@ class FavoriteProvider : ContentProvider() {
         uri: Uri, values: ContentValues?, selection: String?,
         selectionArgs: Array<String>?
     ): Int {
-        return 0
+        if (uri.lastPathSegment == null) {
+            return 0
+        }
+
+        val updated = when (USER_ID) {
+            sUriMatcher.match(uri) -> userDao.updateUser(mapContentValuesToUser(values))
+            else -> 0
+        }
+
+        context?.contentResolver?.notifyChange(CONTENT_URI, null)
+        return updated
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {

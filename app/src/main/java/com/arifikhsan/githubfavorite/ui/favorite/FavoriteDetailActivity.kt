@@ -7,12 +7,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.arifikhsan.githubfavorite.R
-import com.arifikhsan.githubfavorite.config.Constant
 import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
 import com.arifikhsan.githubfavorite.entity.User
-import com.arifikhsan.githubfavorite.helper.MappingHelper
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapCursorToObject
-import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
@@ -44,13 +41,12 @@ class FavoriteDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_detail)
         id = intent.getIntExtra(EXTRA_ID, 0)
-//        username = intent.getStringExtra(EXTRA_USERNAME) ?: "arifikhsan"
         initView()
-        searchUserByUsername()
+        searchUserById()
         populateView()
     }
 
-    private fun searchUserByUsername() {
+    private fun searchUserById() {
         val uriWithId = Uri.parse("$CONTENT_URI/$id")
         val cursor = contentResolver?.query(uriWithId, null, null, null, null)
         if (cursor != null) {
@@ -72,7 +68,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
         } else {
             tv_bio.text = user.bio
         }
-        tv_follower.text = "Followers: ${user.follower}"
+        tv_follower.text = "Followers: ${user.followers}"
         tv_following.text = "Following: ${user.following}"
         tv_public_repos.text = "${user.publicRepos} Public Repositories"
         tv_public_gists.text = "${user.publicGists} Public Gists"

@@ -42,7 +42,7 @@ object MappingHelper {
         return users
     }
 
-    fun mapCursorToObject(userCursor: Cursor?): User {
+    fun mapCursorToUser(userCursor: Cursor?): User {
         var user = User()
 
         userCursor?.apply {
@@ -65,7 +65,7 @@ object MappingHelper {
         return user
     }
 
-    fun mapContentValuesToUser(contentValues: ContentValues?): User {
+    fun mapContentValuesToObject(contentValues: ContentValues?): User {
         var user = User()
 
         contentValues?.apply {
@@ -81,7 +81,7 @@ object MappingHelper {
                 following = getAsInteger(FOLLOWING),
                 publicRepos = getAsInteger(PUBLIC_REPOS),
                 publicGists = getAsInteger(PUBLIC_GISTS),
-                )
+            )
         }
         return user
     }

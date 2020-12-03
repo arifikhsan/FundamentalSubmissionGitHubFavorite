@@ -9,8 +9,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.arifikhsan.githubfavorite.R
+import com.arifikhsan.githubfavorite.config.Constant
 import com.arifikhsan.githubfavorite.entity.User
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapJsonObjectToUser
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapUserToContentValues
 import com.arifikhsan.githubfavorite.repository.GitHubRepository
 import com.arifikhsan.githubfavorite.repository.UserRepository
 import com.bumptech.glide.Glide
@@ -28,8 +30,11 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
 
     companion object {
+        const val EXTRA_ID = "extra_id"
         const val EXTRA_USERNAME = "extra_username"
+
         private val TAG = DetailActivity::class.java.simpleName
+        private var id = 0
         private var username = ""
         private lateinit var user: User
     }
@@ -37,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        id = intent.getIntExtra(EXTRA_ID, 0)
         username = intent.getStringExtra(EXTRA_USERNAME) ?: "arifikhsan"
         initView()
         searchUserByUsername()
@@ -60,6 +66,10 @@ class DetailActivity : AppCompatActivity() {
                     val result = String(responseBody)
                     val userObject = JSONObject(result)
                     user = mapJsonObjectToUser(userObject)
+
+                    val uriWithId = Uri.parse("${Constant.CONTENT_URI}/$id")
+                    contentResolver.update(uriWithId, mapUserToContentValues(user), null, null)
+
                     populateView()
                 }
 
@@ -87,7 +97,7 @@ class DetailActivity : AppCompatActivity() {
         } else {
             tv_bio.text = user.bio
         }
-        tv_follower.text = "Followers: ${user.follower}"
+        tv_follower.text = "Followers: ${user.followers}"
         tv_following.text = "Following: ${user.following}"
         tv_public_repos.text = "${user.publicRepos} Public Repositories"
         tv_public_gists.text = "${user.publicGists} Public Gists"

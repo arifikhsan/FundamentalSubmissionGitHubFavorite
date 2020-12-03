@@ -1,11 +1,71 @@
 package com.example.special
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import com.arifikhsan.githubfavorite.config.Constant.CONTENT_URI
+import com.arifikhsan.githubfavorite.entity.User
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapCursorToUser
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_ID = "extra_id"
+        private var id = 0
+        private lateinit var user: User
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        id = intent.getIntExtra(EXTRA_ID, 0)
+        initView()
+        searchUserById()
+        populateView()
+    }
+
+    private fun searchUserById() {
+        val uriWithId = Uri.parse("$CONTENT_URI/$id")
+        val cursor = contentResolver?.query(uriWithId, null, null, null, null)
+        if (cursor != null) {
+            user = mapCursorToUser(cursor)
+            cursor.close()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun populateView() {
+        Glide.with(this).load(user.avatarUrl)
+            .apply(RequestOptions().override(80, 80)).into(img_avatar)
+        tv_name.text = user.name
+        tv_username.text = "@${user.login}"
+        if (user.bio == "null") {
+            tv_bio.visibility = View.GONE
+        } else {
+            tv_bio.text = user.bio
+        }
+        tv_follower.text = "Followers: ${user.followers}"
+        tv_following.text = "Following: ${user.following}"
+        tv_public_repos.text = "${user.publicRepos} Public Repositories"
+        tv_public_gists.text = "${user.publicGists} Public Gists"
+    }
+
+    private fun initView() {
+        supportActionBar?.title = "Detail Favorite User"
+
+        fab_fav_open_in_browser.setOnClickListener { view ->
+            Snackbar.make(view, "Membuka di browser...", Snackbar.LENGTH_LONG).show()
+
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://www.github.com/${user.login}")
+            startActivity(intent)
+        }
     }
 }

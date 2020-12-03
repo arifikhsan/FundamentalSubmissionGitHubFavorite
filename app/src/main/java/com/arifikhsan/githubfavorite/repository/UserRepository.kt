@@ -5,7 +5,7 @@ import android.content.ContentValues
 import com.arifikhsan.githubfavorite.database.AppDatabase
 import com.arifikhsan.githubfavorite.database.UserDao
 import com.arifikhsan.githubfavorite.entity.User
-import com.arifikhsan.githubfavorite.helper.MappingHelper.mapContentValuesToObject
+import com.arifikhsan.githubfavorite.helper.MappingHelper.mapContentValuesToUser
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapCursorToArrayList
 import com.arifikhsan.githubfavorite.helper.MappingHelper.mapCursorToObject
 
@@ -31,7 +31,7 @@ class UserRepository(application: Application) {
     }
 
     fun insert(values: ContentValues): Long {
-        return userDao.insertUser(mapContentValuesToObject(values))
+        return userDao.insertUser(mapContentValuesToUser(values))
     }
 
 //    fun delete(user: User) {

@@ -148,13 +148,13 @@ class MainActivity : AppCompatActivity() {
         userAdapter.setItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onDetailClicked(user: User) {
                 val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_ID, user.id)
                 intent.putExtra(DetailActivity.EXTRA_USERNAME, user.login)
                 startActivity(intent)
             }
 
             override fun onAddFavoriteClicked(view: View, user: User) {
                 contentResolver?.insert(CONTENT_URI, mapUserToContentValues(user))
-//                userRepository.insert(user)
                 Snackbar.make(view, "Berhasil menambahkan ke favorit", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             }
